@@ -62,7 +62,7 @@ def GetPolarity():
     tweet=requ['text']
 
     # chargement du modèle
-    model = joblib.load("Models/Model_LogiticRegression.pkl")
+    model = joblib.load("Models/Model_SVM.pkl")
 
 
     # parametre pour la recherch
