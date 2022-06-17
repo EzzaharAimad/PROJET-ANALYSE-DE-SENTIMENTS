@@ -51,8 +51,33 @@ def analyse():
     
     return jsonify([{'name':'positive','value':int(positive_at_count)},
                     {'name':'negative','value':int(negative_at_count)}])
-    '''return jsonify([{'name': 'positive', 'value': 10},
-                    {'name': 'negative', 'value': 10}])'''
+
+
+
+@app.route('/api/GetPolarity', methods=['GET', 'POST'])
+def GetPolarity():
+    # recupérer les informations de la requête
+    requ = request.get_json()
+
+    tweet=requ['text']
+
+    # chargement du modèle
+    model = joblib.load("Models/Model_LogiticRegression.pkl")
+
+
+    # parametre pour la recherch
+    # creation d'une colonne contenant les tweets prétraités
+
+    tweet_cleaned = Preprocess.process_tweet(tweet)
+
+    # transformation des tweets en vecteurs et application du modèle
+
+    predicted_value =model.predict(Vectorizer.transform([tweet_cleaned]))
+
+    return jsonify([{'name':'pred','value':int(predicted_value[0])}])
+
+
+
 
 '''@app.errorhandler(500)
 def internal_error(error):
