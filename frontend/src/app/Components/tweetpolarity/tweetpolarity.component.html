@@ -1,0 +1,26 @@
+
+<div class="container mt-5">
+    <div class="h2 mb-5 p-3 border text-center" style="background-color: #3286E6;color : #fff">
+        User Sentiment Analysis Platform
+    </div>
+    <nav class="navbar navbar-dark bg-dark mb-5">
+      <div class="container-fluid justify-content-around">
+        <button class="btn btn-outline-warning me-2" type="button" routerLink="/">Anayser à partir de mots clés</button>
+        <button class="btn btn-outline-warning me-2" type="button" routerLink="/tweetpolarity">Analyser un simple tweet</button>
+      </div>
+    </nav>
+    <div class="card text-center">
+        <form #requestForm = "ngForm" (ngSubmit)="GetPolarity(requestForm)" class="m-auto">
+            <div class="mt-5">
+                <span>Entrez votre Tweet ( Pas plus de 140 caractères )</span>
+            </div>
+            <textarea required="" name="txt" id="txt" cols="40" rows="4" [(ngModel)]="req.text" (click)="resetSentiment()"></textarea><br/>
+            <button class="btn btn-outline-success mt-5 mb-5" type="submit" [disabled]="!requestForm.valid"> Evaluer </button>
+        </form>
+    </div>
+    <div [hidden]="hideResult" class="text-center mt-5 mb-5">
+        <span> Sentiment estimé du tweet : </span>
+        <h1 class="bolder" *ngIf="polarity == 1" style = "color: rgb(6, 101, 243);">{{sentiment}}</h1>
+        <h1 class="bolder" *ngIf="polarity == 0" style = "color: rgb(243, 42, 6);">{{sentiment}}</h1>
+    </div>
+</div>
